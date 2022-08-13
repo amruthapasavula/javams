@@ -1,0 +1,41 @@
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: USERREGESTRATION-SERVICE
+          uri: lb://USERREGESTRATION-SERVICE
+          predicates:
+            - Path= /user/**
+          
+        - id: USERLOGIN-SERVICE
+          uri: lb://USERLOGIN-SERVICE
+          predicates:
+            - Path= /login/**
+        
+            
+        - id: PRODUCT-SERVICE
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path= /product/**
+        
+        
+        - id: PRODUCTCATEGORY-SERVICE
+          uri: lb://PRODUCTCATEGORY-SERVICE
+          predicates:
+            - Path= /productCat/**
+          
+            
+        - id: CART-SERVICE
+          uri: lb://CART-SERVICE
+          predicates:
+            - Path= /cart/**
+          
+           
+        - id: ORDER-SERVICE
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path= /order/**
+          
