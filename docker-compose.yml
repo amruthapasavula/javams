@@ -1,0 +1,147 @@
+version: '3.7'
+
+
+services:
+
+
+ userregistrationservice :
+    image: anjireddy121/userregistration:0.1.release
+    mem_limit: 700m
+    ports:
+      - "8090:8090"
+    networks:
+      - userregbridge
+    depends_on:
+      - naming-server
+    #  - mysql-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+    
+    
+     
+
+
+
+ userlogin_service:
+    image: anjireddy121/userlogin:0.1.release
+    mem_limit: 700m
+    ports:
+      - "8096:8096"
+    networks:
+      - userregbridge
+    depends_on:
+      - naming-server
+    #  - mysql-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+      
+
+ product_service:
+    image: anjireddy121/productservice:0.1.release
+    mem_limit: 700m
+    ports:
+      - "8086:8086"
+    networks:
+      - userregbridge
+    depends_on:
+      - naming-server
+   #   - mysql-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+    
+ productcategoryservice:
+    image: anjireddy121/productcategoryservice:0.1.release
+    mem_limit: 700m
+    ports:
+      - "8085:8085"
+    networks:
+      - userregbridge
+    depends_on:
+      - naming-server
+   #   - mysql-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+
+ cartservice:
+    image: anjireddy121/cartservice:0.1.release
+    mem_limit: 700m
+    ports:
+      - "8095:8095"
+    networks:
+      - userregbridge
+    depends_on:
+      - naming-server
+    #  - mongodb-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+ orderservice:
+    image: anjireddy121/orderservice:0.1.release
+    mem_limit: 700m
+    ports:
+      - "8091:8091"
+    networks:
+      - userregbridge
+    depends_on:
+      - naming-server
+    #  - mongodb-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+
+      
+
+
+
+ api-gateway:
+    image: anjireddy121/apigateway:0.1.release
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - userregbridge
+    depends_on:
+      - naming-server    
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+
+
+ naming-server:
+    image: anjireddy121/eurekaserver:0.1.release 
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - userregbridge
+      
+
+# mysql-server:
+#    image: mysql:latest
+#    container_name: mysql2
+#    environment:
+#    - MYSQL_ROOT_PASSWORD=root
+#    - MYSQL_DATABASE= ecommerce
+# #  - MYSQL_USER=root
+#    - MYSQL_PASSWORD=root
+#    restart: always
+#    ports:
+#    - 3302:3302
+#    networks:
+#      - userregbridge
+#
+# mongodb-server:
+#    image: mongo:latest
+#    container_name: mongodb1
+#    environment:
+#    - MONGO_INITDB_DATABASE=ecommerce
+#    restart: always
+#    ports:
+#    - 27017:27017
+#    networks:
+#      - userregbridge
+    
+
+
+networks:
+  userregbridge:
