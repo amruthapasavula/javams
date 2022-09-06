@@ -16,7 +16,7 @@ public class LoginService {
 	User user;
 	public String userLogin(UserDto uDto)
 	{
-		user=restTemplate.getForObject("http://USERREGESTRATION-SERVICE/user/email/"+uDto.getEmail(),User.class);
+		user=restTemplate.getForObject("http://44.192.91.189:8090/user/email/"+uDto.getEmail(),User.class);
 		if(user==null)
 		{
 			return ("\"Status\": \"User Details Incorrect, Login UnSuccess....\"");
